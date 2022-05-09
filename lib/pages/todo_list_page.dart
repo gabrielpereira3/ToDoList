@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TodoListPage extends StatelessWidget {
-  const TodoListPage({Key? key}) : super(key: key);
+import '../widgets/todo_list_item.dart';
+
+class TodoListPage extends StatefulWidget {
+  TodoListPage({Key? key}) : super(key: key);
+
+  @override
+  State<TodoListPage> createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  final TextEditingController todoController = TextEditingController();
+
+  List<String> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +27,7 @@ class TodoListPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: todoController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "Adicione uma tarefa",
@@ -25,7 +37,13 @@ class TodoListPage extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        String text = todoController.text;
+                        setState(() {
+                          tasks.add(text);
+                        });
+                        todoController.clear();
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xff00E1E5),
                         padding: EdgeInsets.all(14),
@@ -36,6 +54,16 @@ class TodoListPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(height: 16),
+                Flexible(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      for(String task in tasks)
+                        TodoListItem(),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 16),
                 Row(
