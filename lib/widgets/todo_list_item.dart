@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../models/task.dart';
 
 class TodoListItem extends StatelessWidget {
-  const TodoListItem({Key? key}) : super(key: key);
+  const TodoListItem({Key? key, required this.task}) : super(key: key);
+
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -10,16 +15,17 @@ class TodoListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: Colors.grey[200],
       ),
+      margin: const EdgeInsets.symmetric(vertical: 2),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "22/01/2001",
+            DateFormat('dd/MM/yyyy - HH:mm').format(task.dateTime),
             style: TextStyle(fontSize: 12),
           ),
           Text(
-            "Tarefa 1",
+            task.title,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
