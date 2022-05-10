@@ -69,6 +69,7 @@ class _TodoListPageState extends State<TodoListPage> {
                         for(Task task in tasks)
                           TodoListItem(
                             task: task,
+                            onDelete: onDelete;
                           ),
                       ],
                     ),
@@ -99,4 +100,11 @@ class _TodoListPageState extends State<TodoListPage> {
         ),
     );
   }
+
+  void onDelete (Task task){
+    setState(() {
+      tasks.remove(task);
+    });
+  }
+
 }
