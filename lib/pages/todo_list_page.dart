@@ -18,7 +18,7 @@ class _TodoListPageState extends State<TodoListPage> {
 
   List<Task> tasks = [];
   Task? deletedTask;
-  int? deletedTaksPos;
+  int? deletedTaskPos;
 
   String? errorText;
 
@@ -141,7 +141,7 @@ class _TodoListPageState extends State<TodoListPage> {
 
   void onDelete(Task task) {
     deletedTask = task;
-    deletedTaksPos = tasks.indexOf(task);
+    deletedTaskPos = tasks.indexOf(task);
 
     setState(() {
       tasks.remove(task);
@@ -162,7 +162,7 @@ class _TodoListPageState extends State<TodoListPage> {
           textColor: Color(0xff00E1E5),
           onPressed: () {
             setState(() {
-              tasks.insert(deletedTaksPos!, deletedTask!);
+              tasks.insert(deletedTaskPos!, deletedTask!);
             });
 
             todoRepository.saveTodoList(tasks);
